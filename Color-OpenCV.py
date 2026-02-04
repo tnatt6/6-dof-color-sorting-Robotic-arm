@@ -48,7 +48,7 @@ while True:
     max_area_found = 0
     best_contour = None
 
-    # -------- COLOR DETECTION --------
+    # ======= COLOR DETECTION =======
     for name, (low, high) in COLORS.items():
         mask = cv2.inRange(hsv, np.array(low), np.array(high))
         mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
@@ -69,7 +69,7 @@ while True:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
         cv2.putText(frame, f"{best_color_name}", (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
 
-    # -------- STATE LOGIC --------
+    # ======= STATE LOGIC =======
     if state == State.IDLE:
         if detected_color != "NONE":
             current_color = detected_color
@@ -98,7 +98,7 @@ while True:
             print("RESETTING...")
             state = State.IDLE
 
-    # -------- DISPLAY --------
+    # ======= DISPLAY =======
     cv2.putText(frame, f"State: {state.name}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
     cv2.putText(frame, f"Color: {detected_color}", (10, 70), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
     cv2.imshow("Vision State Machine", frame)
